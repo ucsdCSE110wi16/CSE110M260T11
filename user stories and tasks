@@ -1,0 +1,52 @@
+(Setting minimum time for tasks as 1 Hour)
+
+User Story 1: As a user I want to see if the gym is impacted So that I know if I should go or not
+  Task 1: Create a user interface (either search bar, drop down menu, or map) that allows a user to search for comments from a certain location (ie gym) 
+    Estimated time: 1 Hour
+  Task 2: Create a data structure (list) to hold comments from a certain location (ie gym)
+    Estimated time: 1 Hour
+  Task 3: Create a user interface that allows a user to scroll through multiple comments
+    Estimated time: 1 Hour
+
+User Story 2: As a user I would like to submit a comment into a feed specified by location so that I can let people know if a certain location is crowded or empty.
+  Task 1: Create a submission page (accessed by a “Submit” button) that includes one text box that can hold up to 140 characters for the comment (character limit subject to change) and one text box (or drop down menu?) that specifies the location from where the comment was made.  
+    Estimated time: 1 Hour
+  Task 2: Add the comment into a global list of comments that can be accessed by anyone who also has the app. 
+    Estimated time: 1 Hour
+
+User Story 3: As an user I want to see if the basketball courts at RIMAC is impacted So that I know if I could get an open court to play on
+	(See user story 1)
+
+User Story 4: As a user I’d like a search bar to find places. And would like the path between Galbraith and Main Gym, Library walk, and PC
+	Task 1: Figure out how to implement a search bar
+
+User Story 5: As a user, I want to know if study areas, like Geisel and Starbucks, are crowded or not, so that I can study on campus
+	(See user story 1)
+
+User Story 6: As a user I’d like to see if the labs, especially Computer Science Labs are full, so that I can avoid rush hour if need be.
+	(See user story 1)
+
+User Story 7: As a user, I’d like to see a list of all the crowded/populated areas in order by population. This will give me a feel of what areas to avoid.
+	(Would we be able to do this?)
+
+User Story 8: As a user, I’d like to see a space to place to add a short description for the user. This way I will be able to understand as to why a certain area is full.
+	(See user story 1)
+
+User Story 9: As a user, I would want to see a verification system, this way other users can back up whatever the other person is saying.
+  Task 1: Implement a member variable in the comment class that tracks how many upvotes and downvotes the comment has
+    Estimated time: 1 hour 
+  Task 2: Create buttons on the user interface that can give a comment either one upvote or one downvote.
+    Estimated time: 2 hours 
+
+User Story 10: As a user, I would like to get a general feel of how much parking is left so that I can save time or just take the bus.
+	(See user story 1)
+
+User Story 11: As a user I would want to see GPS enabled so that areas around me can be observed based on attendance.
+	Task 1: Learn how to enable GPS 
+
+User Story 12: As a user I would like to see a feature that allows locations to be updated in an organized thread. This is important so things won’t be as clutered. 
+	Task 1: Create two buttons to toggle between a list sorted by upvotes and a list sorted by time submitted
+
+User Story 13: As a user I would like old comments to disappear so that when I check the status of a location it is properly updated.
+	Task 1: Implement a date/time variable into the comment class
+	Task 2: Create a commentDeleter class that will delete comments from the list after every 3 hours or so
