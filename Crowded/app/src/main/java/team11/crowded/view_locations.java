@@ -3,7 +3,6 @@ package team11.crowded;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.graphics.Color;
 
