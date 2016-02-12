@@ -1,0 +1,6 @@
+Projected Schedule as of 2/10
+
+Week 7: Complete User Stories 3-8, ability to present up to the list of comments available per location, ability to add comments 
+Week 8: Complete User Stories 9-13, Google Map implementation, ranking systems implementation
+Week 9: Finish Baseline Functionality, begin prettying things up, bug searching
+Week 10: UI Refinement and Corner Case testing, continue to bug search
