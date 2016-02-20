@@ -9,7 +9,7 @@ import android.widget.EditText;
 import android.view.View;
 import android.graphics.Color;
 
-public class add_comment extends AppCompatActivity {
+public class add_Comment extends AppCompatActivity {
 
     String comment;
     EditText commentBox = new EditText(this);

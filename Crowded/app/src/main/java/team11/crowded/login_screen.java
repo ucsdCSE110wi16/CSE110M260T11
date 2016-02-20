@@ -44,7 +44,7 @@ public class login_screen extends AppCompatActivity
         setContentView(layout);
 
 
-
+        /*
         //google sign-in
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
@@ -63,7 +63,7 @@ public class login_screen extends AppCompatActivity
         //When signin button is clicked
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent, RC_SIGN_IN);
-
+    */
 
 
 
