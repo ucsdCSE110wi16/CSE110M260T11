@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_id": "crowded-6d5cd",
+    "project_number": "116581265723",
+    "name": "Crowded"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:116581265723:android:e417b23bea75ebb4",
+        "client_id": "android:team11.crowded",
+        "client_type": 1,
+        "android_client_info": {
+          "package_name": "team11.crowded"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "116581265723-p5vc448ihjoaja4t8kce05v5mb73tmmu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "team11.crowded",
+            "certificate_hash": "903D09A8C2F0401F7627637B53B6DDB73ABD7EF2"
+          }
+        },
+        {
+          "client_id": "116581265723-c6ijd6l48kr0fnevrb4tgr9537uu1q4e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "cloud_messaging_service": {
+          "status": 1,
+          "apns_config": []
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "google_signin_service": {
+          "status": 2
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "client_info": [],
+  "ARTIFACT_VERSION": "1"
+}
