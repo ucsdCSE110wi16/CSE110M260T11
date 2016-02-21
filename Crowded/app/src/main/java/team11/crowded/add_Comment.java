@@ -12,6 +12,7 @@ import android.graphics.Color;
 public class add_Comment extends AppCompatActivity {
 
     String comment = "";
+    private static int position = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +45,16 @@ public class add_Comment extends AppCompatActivity {
             @Override
             public void onClick( View view ) {
                 comment = commentBox.getText().toString();
+                commentBox.setText(String.valueOf(position));
             }
         });
+    }
 
+    public static void setPosition(int location) {
+        position = location;
+    }
+
+    public String getComment() {
+        return comment;
     }
 }
