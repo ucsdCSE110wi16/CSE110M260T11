@@ -1,7 +1,9 @@
 package team11.crowded;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.RelativeLayout;
@@ -19,6 +21,10 @@ public class add_Comment extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setTitle( "Add a comment!" );
+
+        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
         RelativeLayout layout = new RelativeLayout(this);
         RelativeLayout.LayoutParams param = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
@@ -56,5 +62,11 @@ public class add_Comment extends AppCompatActivity {
 
     public String getComment() {
         return comment;
+    }
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        Intent myIntent = new Intent(getApplicationContext(), login_screen.class);
+        startActivityForResult(myIntent, 0);
+        return true;
     }
 }
