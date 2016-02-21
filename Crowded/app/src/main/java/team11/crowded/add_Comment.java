@@ -19,17 +19,24 @@ public class add_Comment extends AppCompatActivity {
 
         setTitle( "Add a comment!" );
         RelativeLayout layout = new RelativeLayout(this);
+        RelativeLayout.LayoutParams param = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.WRAP_CONTENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT);
+
+        param.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+        param.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+
         Button submit = new Button(this);
         final EditText commentBox = new EditText(this);
-        commentBox.setText( "Enter comment here" );
 
+        commentBox.setHint( "Enter comment here" );
+        commentBox.setEnabled(true);
         submit.setText("Submit");
         submit.setClickable(true);
-        layout.setBackgroundColor(Color.BLUE);
-        layout.addView( submit );
+        layout.setBackgroundColor(Color.WHITE);
 
+        layout.addView( submit, param );
         layout.addView( commentBox );
-
         setContentView( layout );
 
         submit.setOnClickListener( new View.OnClickListener() {
