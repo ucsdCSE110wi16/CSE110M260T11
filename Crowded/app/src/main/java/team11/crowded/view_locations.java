@@ -1,10 +1,10 @@
 package team11.crowded;
 
-import android.support.v7.app.AppCompatActivity;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.graphics.Color;
 
 public class view_locations extends AppCompatActivity
 {

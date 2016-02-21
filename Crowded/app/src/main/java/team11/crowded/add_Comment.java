@@ -1,13 +1,12 @@
 package team11.crowded;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.RelativeLayout;
-import android.widget.EditText;
-import android.view.View;
 import android.graphics.Color;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RelativeLayout;
 
 public class add_Comment extends AppCompatActivity {
 
