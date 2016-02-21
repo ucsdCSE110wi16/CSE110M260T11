@@ -9,13 +9,38 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.OptionalPendingResult;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
+
 public class login_screen extends AppCompatActivity
 {
+    private GoogleApiClient mGoogleApiClient;
+
+
     @Override protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
 
         setTitle("Sign in with Google Account");
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+
+
+        //mGoogleApiClient = new GoogleApiClient.Builder(this)
+         //       .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
+           //     .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+             //   .build();
+
 
         EditText username = new EditText(this);
         EditText password = new EditText(this);
@@ -36,6 +61,7 @@ public class login_screen extends AppCompatActivity
 
         LinearLayout layout = new LinearLayout(this);
 
+
         layout.setBackgroundColor(Color.WHITE);
         layout.addView(username);
         layout.addView(password);
@@ -43,18 +69,7 @@ public class login_screen extends AppCompatActivity
 
         setContentView(layout);
 
-
-        /*
-        //google sign-in
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail()
-                .build();
-        // Build a GoogleApiClient with access to GoogleSignIn.API and the options above.
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .enableAutoManage(this, this)
-                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-                .build();
-
+/*
         //sign in button
         SignInButton signInButton = (SignInButton) findViewById(R.id.sign_in_button);
         signInButton.setSize(SignInButton.SIZE_STANDARD);
@@ -63,8 +78,8 @@ public class login_screen extends AppCompatActivity
         //When signin button is clicked
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent, RC_SIGN_IN);
-    */
 
+*/
 
 
     }
