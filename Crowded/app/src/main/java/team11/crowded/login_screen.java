@@ -56,7 +56,7 @@ public class login_screen extends AppCompatActivity
             {
                 // todo: connect to google account for secure login
                 //startActivity(new Intent(login_screen.this, view_locations.class));
-                startActivity(new Intent(login_screen.this, view_page.class));
+                startActivity(new Intent(login_screen.this, view_locations.class));
             }
         });
 

@@ -29,8 +29,8 @@ public class view_locations extends AppCompatActivity
            @Override
            public void onItemClick(AdapterView<?> adapter, View view, int position, long arg) {
                // todo: connect to google account for secure login
-               startActivity(new Intent(view_locations.this, add_Comment.class));
-               add_Comment.setPosition( position );
+               startActivity(new Intent(view_locations.this, view_page.class));
+               //add_Comment.setPosition( position );
             }
         });
 
