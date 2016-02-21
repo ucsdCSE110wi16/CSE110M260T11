@@ -22,6 +22,8 @@ public class view_locations extends AppCompatActivity
 
         location_database.list_locations(this, list);
 
+        // todo: algorithm to decide what post should be featured for each locaiton
+
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapter, View view, int position, long arg) {

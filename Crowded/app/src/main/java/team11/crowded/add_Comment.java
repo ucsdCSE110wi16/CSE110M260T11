@@ -13,6 +13,10 @@ import android.graphics.Color;
 
 public class add_Comment extends AppCompatActivity {
 
+    private static final String RATING_EMPTY = "1";
+    private static final String RATING_SOME  = "2";
+    private static final String RATING_FULL  = "3";
+
     String comment = "";
     private static int position = 0;
 
@@ -52,6 +56,9 @@ public class add_Comment extends AppCompatActivity {
             public void onClick( View view ) {
                 comment = commentBox.getText().toString();
                 commentBox.setText(String.valueOf(position));
+
+                // todo: change this example submission to take user input
+                location_database.submit_post("user example", "Biomedical Library", RATING_EMPTY, "comment example");
             }
         });
     }
@@ -65,7 +72,7 @@ public class add_Comment extends AppCompatActivity {
     }
     public boolean onOptionsItemSelected(MenuItem item)
     {
-        Intent myIntent = new Intent(getApplicationContext(), login_screen.class);
+        Intent myIntent = new Intent(getApplicationContext(), view_page.class);
         startActivityForResult(myIntent, 0);
         return true;
     }

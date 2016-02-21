@@ -9,9 +9,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Map;
 
 public class view_page extends AppCompatActivity
 {
@@ -25,6 +30,18 @@ public class view_page extends AppCompatActivity
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         RelativeLayout layout = new RelativeLayout(this);
+
+        // todo: change this example location to currently viewed location
+        ArrayList<Map<String, String>> posts = location_database.get_location_posts("Biomedical Library");
+
+        // todo: make a swipable list for every post
+
+        // example of getting a value from a posts
+        if (!posts.isEmpty()) {
+            EditText temporary_show_post = new EditText(this);
+            temporary_show_post.setHint("user's comment: " + posts.get(0).get("comment"));
+            layout.addView(temporary_show_post);
+        }
 
         RelativeLayout.LayoutParams param = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
