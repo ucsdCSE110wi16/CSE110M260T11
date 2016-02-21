@@ -1,24 +1,27 @@
 package team11.crowded;
 
-import android.graphics.Color;
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
+import android.os.Bundle;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.EditText;
+import android.view.View;
+import android.graphics.Color;
 
 public class add_Comment extends AppCompatActivity {
 
-    String comment;
-    EditText commentBox = new EditText(this);
+    String comment = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        setTitle( "Add a comment!" );
         RelativeLayout layout = new RelativeLayout(this);
         Button submit = new Button(this);
+        final EditText commentBox = new EditText(this);
+        commentBox.setText( "Enter comment here" );
 
         submit.setText("Submit");
         submit.setClickable(true);
