@@ -17,32 +17,18 @@ public class view_locations extends AppCompatActivity
 
         setTitle("Choose a Location");
 
-        String[] locations = location_database.get_locations();
+        ListView list = new ListView(this);
+        list.setBackgroundColor(Color.WHITE);
 
-        ListView list_locations = new ListView(this);
+        location_database.list_locations(this, list);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, locations);
-        list_locations.setAdapter(adapter);
-        list_locations.setBackgroundColor(Color.WHITE);
-
-       list_locations.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-           @Override
-           public void onItemClick(AdapterView<?> adapter, View view, int position, long arg) {
-               // todo: connect to google account for secure login
-               startActivity(new Intent(view_locations.this, view_page.class));
-               //add_Comment.setPosition( position );
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapter, View view, int position, long arg) {
+                startActivity(new Intent(view_locations.this, view_page.class));
             }
         });
 
-        // todo: on click event for items in location list transfers to view_page activity
-        /*list_locations.setOnItemClickListener(new AdapterView.onItemClickListener()
-        {
-            @Override public void onItemClick(AdapterView<?> adapter, View view, int position, long arg) {
-                Intent appInfo = new Intent(YourActivity.this, ApkInfoActivity.class);
-                startActivity(appInfo);
-            }
-        });*/
-
-        setContentView(list_locations);
+        setContentView(list);
     }
 }
