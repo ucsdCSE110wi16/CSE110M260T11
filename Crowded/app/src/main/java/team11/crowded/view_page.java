@@ -71,7 +71,7 @@ public class view_page extends AppCompatActivity
     }
     public boolean onOptionsItemSelected(MenuItem item)
     {
-        Intent myIntent = new Intent(getApplicationContext(), login_screen.class);
+        Intent myIntent = new Intent(getApplicationContext(), view_locations.class);
         startActivityForResult(myIntent, 0);
         return true;
     }
