@@ -28,6 +28,8 @@ public class view_locations extends AppCompatActivity
             @Override
             public void onItemClick(AdapterView<?> adapter, View view, int position, long arg) {
                 startActivity(new Intent(view_locations.this, view_page.class));
+                String temp = adapter.getItemAtPosition( position ).toString();
+                add_Comment.setPosition( temp );
             }
         });
 

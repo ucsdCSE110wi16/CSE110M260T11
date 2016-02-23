@@ -18,7 +18,7 @@ public class add_Comment extends AppCompatActivity {
     private static final String RATING_FULL  = "3";
 
     String comment = "";
-    private static int position = 0;
+    private static String location = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,16 +55,14 @@ public class add_Comment extends AppCompatActivity {
             @Override
             public void onClick( View view ) {
                 comment = commentBox.getText().toString();
-                commentBox.setText(String.valueOf(position));
-
                 // todo: change this example submission to take user input
-                location_database.submit_post("user example", "Biomedical Library", RATING_EMPTY, "comment example");
+                location_database.submit_post("user example", location, RATING_EMPTY, comment);
             }
         });
     }
 
-    public static void setPosition(int location) {
-        position = location;
+    public static void setPosition(String loc) {
+        location = loc;
     }
 
     public String getComment() {
