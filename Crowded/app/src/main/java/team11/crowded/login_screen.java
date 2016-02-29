@@ -13,8 +13,15 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.view.ViewGroup.LayoutParams;
+import android.util.Log;
 
 import com.firebase.client.Firebase;
+import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.auth.api.signin.GoogleSignInApi;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.GoogleApiClient;
 
@@ -23,6 +30,10 @@ public class login_screen extends AppCompatActivity
     private GoogleApiClient mGoogleApiClient;
 
     private static String current_user = "";
+
+    private SignInButton googleSignIn;
+
+    private static int RC_SIGN_IN = 9001;
 
     public static String get_user()
     {
@@ -92,11 +103,59 @@ public class login_screen extends AppCompatActivity
         loginParams.gravity = Gravity.BOTTOM;
         login.setLayoutParams(loginParams);
 
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this, new GoogleApiClient.OnConnectionFailedListener() {
+                    @Override
+                    public void onConnectionFailed(ConnectionResult connectionResult) {
+                        Log.d("SignInActivity", "onConnectionFail:" + connectionResult);
+                    }
+                })
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build();
+
+        googleSignIn = new SignInButton(this);
+        googleSignIn.setClickable(true);
+        googleSignIn.setSize(SignInButton.SIZE_STANDARD);
+        googleSignIn.setScopes(gso.getScopeArray());
+        googleSignIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                signIn();
+                startActivity(new Intent(login_screen.this, view_locations.class));
+            }
+        });
+        LinearLayout.LayoutParams googleParams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.WRAP_CONTENT);
+        googleParams.gravity = Gravity.BOTTOM;
+        googleSignIn.setLayoutParams(googleParams);
+
         LL.addView(logo);
         LL.addView(username);
         LL.addView(password);
         LL.addView(login);
+        LL.addView(googleSignIn);
+
 
         setContentView(LL);
+    }
+
+    private void signIn() {
+        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+        startActivityForResult(signInIntent, RC_SIGN_IN);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == RC_SIGN_IN) {
+            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            handleSignInResult(result);
+        }
+    }
+
+    public void handleSignInResult(GoogleSignInResult result) {
+        Log.d("SignInActivity", "handleSignInResult:" + result.isSuccess());
+        if(result.isSuccess()) {
+            GoogleSignInAccount account = result.getSignInAccount();
+        }
     }
 }
