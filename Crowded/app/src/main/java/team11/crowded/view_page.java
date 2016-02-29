@@ -1,78 +1,75 @@
 package team11.crowded;
 
-import android.app.ActionBar;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
+import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Map;
+import android.widget.ListView;
 
 public class view_page extends AppCompatActivity
 {
+    private static String current_location = "";
+
+    public static void set_location(String location)
+    {
+        current_location = location;
+    }
+
+    public static String get_location()
+    {
+        return current_location;
+    }
+
     @Override protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
 
-        setTitle("Status of This Location");
-
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        RelativeLayout layout = new RelativeLayout(this);
+        setTitle("Loading Location View. Please wait");
 
-        // todo: change this example location to currently viewed location
-        ArrayList<Map<String, String>> posts = location_database.get_location_posts("Biomedical Library");
+        LinearLayout LL = new LinearLayout(this);
+        LL.setBackgroundColor(Color.WHITE);
+        LL.setOrientation(LinearLayout.VERTICAL);
+        LinearLayout.LayoutParams LLParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        LL.setLayoutParams(LLParams);
 
-        // todo: make a swipable list for every post
-
-        // example of getting a value from a posts
-        if (!posts.isEmpty()) {
-            EditText temporary_show_post = new EditText(this);
-            temporary_show_post.setHint("user's comment: " + posts.get(0).get("comment"));
-            layout.addView(temporary_show_post);
-        }
-
-        RelativeLayout.LayoutParams param = new RelativeLayout.LayoutParams(
-                RelativeLayout.LayoutParams.WRAP_CONTENT,
-                RelativeLayout.LayoutParams.WRAP_CONTENT);
-
-        param.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-        param.addRule(RelativeLayout.CENTER_HORIZONTAL);
-
-        Button addComment = new Button(this);
-        addComment.setText("Add Comment");
-        addComment.setClickable(true);
-
-        layout.addView(addComment, param);
-
-        layout.setBackgroundColor(Color.WHITE);
-        setContentView(layout);
-
-        addComment.setOnClickListener(new View.OnClickListener()
-        {
+        Button submission = new Button(this);
+        submission.setText("Submit a Post");
+        submission.setClickable(false);
+        submission.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view)
-            {
-                startActivity(new Intent(view_page.this, add_Comment.class));
+            public void onClick(View view) {
+                startActivity(new Intent(view_page.this, add_comment.class));
             }
         });
+        LinearLayout.LayoutParams loginParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        loginParams.gravity = Gravity.BOTTOM;
+        submission.setLayoutParams(loginParams);
+
+        ListView list = new ListView(this);
+        list.setBackgroundColor(Color.WHITE);
+        location_database.list_location_page(this, list, current_location);
+        LinearLayout.LayoutParams listParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 1);
+        listParams.gravity = Gravity.TOP;
+        list.setLayoutParams(listParams);
+
+        LL.addView(list);
+        LL.addView(submission);
+
+        setContentView(LL);
 
     }
     public boolean onOptionsItemSelected(MenuItem item)
     {
-        Intent myIntent = new Intent(getApplicationContext(), view_locations.class);
-        startActivityForResult(myIntent, 0);
+        startActivityForResult(new Intent(getApplicationContext(), view_locations.class), 0);
         return true;
     }
 }

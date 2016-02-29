@@ -51,22 +51,65 @@ public class location_database {
         posts.push().setValue(post);
     }
 
+    public static void refresh_posts(final String location) {
+        Firebase db = new Firebase("https://incandescent-fire-8621.firebaseio.com/");
+        Firebase select = db.child("locations/" + get_to_db_location(location) + "/posts");
+
+        select.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+
+                ArrayList<Map<String, String>> loc_posts = new ArrayList<>();
+
+                for (DataSnapshot post : snapshot.getChildren()) {
+
+                    loc_posts.add((HashMap<String, String>) post.getValue());
+                }
+
+                posts.put(location, loc_posts);
+            }
+
+            @Override
+            public void onCancelled(FirebaseError error) {
+                System.out.println(error.getMessage());
+            }
+        });
+    }
+
+    public static void list_location_page(final AppCompatActivity view, final ListView list, String location) {
+
+        ArrayList<Map<String, String>> posts = location_database.get_location_posts(location);
+
+        ArrayList<String> post_list = new ArrayList<>();
+
+        if (!posts.isEmpty()) {
+            for (Map<String, String> p : posts)
+            {
+                String post_info = "";
+
+                post_info += "time = " + p.get("time") + "\n";
+                post_info += "rating = " + p.get("rating") + "\n";
+                post_info += "votes = " + p.get("votes") + "\n";
+                post_info += "comment = " + p.get("comment") + "\n";
+                post_info += "name = " + p.get("name") + "\n";
+
+                post_list.add(post_info);
+            }
+        }
+        else {
+            post_list.add("No posts found");
+        }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(view, android.R.layout.simple_list_item_1, post_list);
+        list.setAdapter(adapter);
+
+        view.setTitle("Status of This Location");
+    }
+
     public static void list_locations(final AppCompatActivity view, final ListView list) {
 
         Firebase db = new Firebase("https://incandescent-fire-8621.firebaseio.com/");
         Firebase places = db.child("locations/");
-
-        /*places.child("geisel/name").setValue("Geisel");
-        places.child("ridgewalk/name").setValue("Ridgewalk");
-        places.child("biomedical_library/name").setValue("Biomedical Library");
-        places.child("cse_basement/name").setValue("CSE Basement");
-        places.child("main_gym/name").setValue("Main Gym");
-        places.child("rimac_weight_room/name").setValue("Rimac Weight Room");
-        places.child("rimac_basketball_courts/name").setValue("Rimac Basketball Courts");
-        places.child("starbucks/name").setValue("Starbucks");
-        places.child("price_center/name").setValue("Price Center");
-        places.child("geisel_8th_floor/name").setValue("Geisel 8th Floor");
-        places.child("geisel_7th_floor/name").setValue("Geisel 7th Floor");*/
 
         places.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -75,7 +118,7 @@ public class location_database {
                 // each location
                 for (DataSnapshot location : snapshot.getChildren()) {
 
-                    String name = (String)location.child("name").getValue();
+                    String name = (String) location.child("name").getValue();
                     db_locations.add((String) location.getKey());
                     locations.add(name);
 
@@ -84,7 +127,7 @@ public class location_database {
                     // each post in location
                     for (DataSnapshot post : location.child("posts/").getChildren()) {
 
-                        loc_posts.add((HashMap<String, String>)post.getValue());
+                        loc_posts.add((HashMap<String, String>) post.getValue());
                     }
 
                     posts.put(name, loc_posts);
@@ -92,6 +135,8 @@ public class location_database {
 
                 ArrayAdapter<String> adapter = new ArrayAdapter<>(view, android.R.layout.simple_list_item_1, locations);
                 list.setAdapter(adapter);
+
+                view.setTitle("Choose a Location");
             }
 
             @Override
