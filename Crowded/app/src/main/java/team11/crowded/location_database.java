@@ -11,6 +11,7 @@ import com.firebase.client.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -20,7 +21,6 @@ public class location_database {
     private static final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd-HH-mm");
     private static final ArrayList<String> db_locations = new ArrayList<>();
     private static final ArrayList<String> locations = new ArrayList<>();
-    private static final Map<String, ArrayList<Map<String, String>>> posts = new HashMap<>();
 
     private static String get_to_db_location(String location)
     {
@@ -30,11 +30,6 @@ public class location_database {
     public static ArrayList<String> get_locations()
     {
         return locations;
-    }
-
-    public static ArrayList<Map<String, String>> get_location_posts(String location)
-    {
-        return posts.get(location);
     }
 
     public static void submit_post(String name, String location, String rating, String comment) {
@@ -51,7 +46,8 @@ public class location_database {
         posts.push().setValue(post);
     }
 
-    public static void refresh_posts(final String location) {
+    public static void list_location_page(final AppCompatActivity view, final ListView list, final String location) {
+
         Firebase db = new Firebase("https://incandescent-fire-8621.firebaseio.com/");
         Firebase select = db.child("locations/" + get_to_db_location(location) + "/posts");
 
@@ -59,14 +55,40 @@ public class location_database {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
 
-                ArrayList<Map<String, String>> loc_posts = new ArrayList<>();
+                ArrayList<Map<String, String>> posts = new ArrayList<>();
 
                 for (DataSnapshot post : snapshot.getChildren()) {
 
-                    loc_posts.add((HashMap<String, String>) post.getValue());
+                    posts.add((HashMap<String, String>) post.getValue());
                 }
 
-                posts.put(location, loc_posts);
+                ArrayList<String> post_list = new ArrayList<>();
+
+                if (!posts.isEmpty()) {
+
+                    Collections.sort(posts, new sort_posts(format));
+
+                    for (Map<String, String> p : posts)
+                    {
+                        String post_info = "";
+
+                        post_info += "time = " + p.get("time") + "\n";
+                        post_info += "rating = " + p.get("rating") + "\n";
+                        post_info += "votes = " + p.get("votes") + "\n";
+                        post_info += "comment = " + p.get("comment") + "\n";
+                        post_info += "name = " + p.get("name") + "\n";
+
+                        post_list.add(post_info);
+                    }
+                }
+                else {
+                    post_list.add("No posts found");
+                }
+
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(view, android.R.layout.simple_list_item_1, post_list);
+                list.setAdapter(adapter);
+
+                view.setTitle("Viewing " + location);
             }
 
             @Override
@@ -74,36 +96,6 @@ public class location_database {
                 System.out.println(error.getMessage());
             }
         });
-    }
-
-    public static void list_location_page(final AppCompatActivity view, final ListView list, String location) {
-
-        ArrayList<Map<String, String>> posts = location_database.get_location_posts(location);
-
-        ArrayList<String> post_list = new ArrayList<>();
-
-        if (!posts.isEmpty()) {
-            for (Map<String, String> p : posts)
-            {
-                String post_info = "";
-
-                post_info += "time = " + p.get("time") + "\n";
-                post_info += "rating = " + p.get("rating") + "\n";
-                post_info += "votes = " + p.get("votes") + "\n";
-                post_info += "comment = " + p.get("comment") + "\n";
-                post_info += "name = " + p.get("name") + "\n";
-
-                post_list.add(post_info);
-            }
-        }
-        else {
-            post_list.add("No posts found");
-        }
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(view, android.R.layout.simple_list_item_1, post_list);
-        list.setAdapter(adapter);
-
-        view.setTitle("Status of This Location");
     }
 
     public static void list_locations(final AppCompatActivity view, final ListView list) {
@@ -115,22 +107,15 @@ public class location_database {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
 
+                locations.clear();
+                db_locations.clear();
+
                 // each location
                 for (DataSnapshot location : snapshot.getChildren()) {
 
                     String name = (String) location.child("name").getValue();
                     db_locations.add((String) location.getKey());
                     locations.add(name);
-
-                    ArrayList<Map<String, String>> loc_posts = new ArrayList<>();
-
-                    // each post in location
-                    for (DataSnapshot post : location.child("posts/").getChildren()) {
-
-                        loc_posts.add((HashMap<String, String>) post.getValue());
-                    }
-
-                    posts.put(name, loc_posts);
                 }
 
                 ArrayAdapter<String> adapter = new ArrayAdapter<>(view, android.R.layout.simple_list_item_1, locations);

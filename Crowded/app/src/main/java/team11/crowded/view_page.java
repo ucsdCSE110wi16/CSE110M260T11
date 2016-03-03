@@ -33,7 +33,7 @@ public class view_page extends AppCompatActivity
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        setTitle("Loading Location View. Please wait");
+        setTitle("Loading Posts. Please wait");
 
         LinearLayout LL = new LinearLayout(this);
         LL.setBackgroundColor(Color.WHITE);

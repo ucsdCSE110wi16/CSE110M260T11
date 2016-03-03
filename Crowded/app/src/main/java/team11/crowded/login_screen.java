@@ -17,7 +17,6 @@ import android.util.Log;
 
 import com.firebase.client.Firebase;
 import com.google.android.gms.common.SignInButton;
-import com.google.android.gms.auth.api.signin.GoogleSignInApi;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -27,13 +26,9 @@ import com.google.android.gms.common.api.GoogleApiClient;
 
 public class login_screen extends AppCompatActivity
 {
-    private GoogleApiClient mGoogleApiClient;
+    private final int RC_SIGN_IN = 9001;
 
     private static String current_user = "";
-
-    private SignInButton googleSignIn;
-
-    private static int RC_SIGN_IN = 9001;
 
     public static String get_user()
     {
@@ -90,7 +85,7 @@ public class login_screen extends AppCompatActivity
         password.setLayoutParams(passwordParams);
 
         Button login = new Button(this);
-        login.setText("Sign in");
+        login.setText("Sign in as guest");
         login.setClickable(false);
         login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,7 +98,7 @@ public class login_screen extends AppCompatActivity
         loginParams.gravity = Gravity.BOTTOM;
         login.setLayoutParams(loginParams);
 
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
+        final GoogleApiClient mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this, new GoogleApiClient.OnConnectionFailedListener() {
                     @Override
                     public void onConnectionFailed(ConnectionResult connectionResult) {
@@ -113,34 +108,29 @@ public class login_screen extends AppCompatActivity
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
 
-        googleSignIn = new SignInButton(this);
-        googleSignIn.setClickable(true);
-        googleSignIn.setSize(SignInButton.SIZE_STANDARD);
-        googleSignIn.setScopes(gso.getScopeArray());
-        googleSignIn.setOnClickListener(new View.OnClickListener() {
+        SignInButton login_google = new SignInButton(this);
+        login_google.setClickable(true);
+        login_google.setSize(SignInButton.SIZE_STANDARD);
+        login_google.setScopes(gso.getScopeArray());
+        login_google.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                signIn();
+                Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+                startActivityForResult(signInIntent, RC_SIGN_IN);
                 startActivity(new Intent(login_screen.this, view_locations.class));
             }
         });
         LinearLayout.LayoutParams googleParams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.WRAP_CONTENT);
         googleParams.gravity = Gravity.BOTTOM;
-        googleSignIn.setLayoutParams(googleParams);
+        login_google.setLayoutParams(googleParams);
 
         LL.addView(logo);
         LL.addView(username);
         LL.addView(password);
+        LL.addView(login_google);
         LL.addView(login);
-        LL.addView(googleSignIn);
-
 
         setContentView(LL);
-    }
-
-    private void signIn() {
-        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
-        startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
     @Override
@@ -154,8 +144,10 @@ public class login_screen extends AppCompatActivity
 
     public void handleSignInResult(GoogleSignInResult result) {
         Log.d("SignInActivity", "handleSignInResult:" + result.isSuccess());
-        if(result.isSuccess()) {
+        if(result.isSuccess())
+        {
             GoogleSignInAccount account = result.getSignInAccount();
+            current_user = account.getEmail();
         }
     }
 }
