@@ -35,6 +35,10 @@ public class login_screen extends AppCompatActivity
         return current_user;
     }
 
+    private GoogleApiClient mGoogleApiClient;
+
+    //private ProgressDialog progress;
+
     @Override protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
@@ -47,10 +51,15 @@ public class login_screen extends AppCompatActivity
                 .requestEmail()
                 .build();
 
-        //mGoogleApiClient = new GoogleApiClient.Builder(this)
-         //       .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
-           //     .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-             //   .build();
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this, new GoogleApiClient.OnConnectionFailedListener() {
+                    @Override
+                    public void onConnectionFailed(ConnectionResult connectionResult) {
+                        Log.d("SignInActivity", "onConnectionFail:" + connectionResult);
+                    }
+                })
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build();
 
         LinearLayout LL = new LinearLayout(this);
         LL.setBackgroundColor(Color.WHITE);
@@ -98,16 +107,6 @@ public class login_screen extends AppCompatActivity
         loginParams.gravity = Gravity.BOTTOM;
         login.setLayoutParams(loginParams);
 
-        final GoogleApiClient mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .enableAutoManage(this, new GoogleApiClient.OnConnectionFailedListener() {
-                    @Override
-                    public void onConnectionFailed(ConnectionResult connectionResult) {
-                        Log.d("SignInActivity", "onConnectionFail:" + connectionResult);
-                    }
-                })
-                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-                .build();
-
         SignInButton login_google = new SignInButton(this);
         login_google.setClickable(true);
         login_google.setSize(SignInButton.SIZE_STANDARD);
@@ -117,7 +116,6 @@ public class login_screen extends AppCompatActivity
             public void onClick(View view) {
                 Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
                 startActivityForResult(signInIntent, RC_SIGN_IN);
-                startActivity(new Intent(login_screen.this, view_locations.class));
             }
         });
         LinearLayout.LayoutParams googleParams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.WRAP_CONTENT);

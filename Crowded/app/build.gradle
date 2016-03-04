@@ -41,3 +41,5 @@ dependencies {
     compile 'com.firebase:firebase-client-android:2.5.2'
     compile 'com.google.android.gms:play-services:8.3.0'
 }
+
+apply plugin: 'com.google.gms.google-services'
