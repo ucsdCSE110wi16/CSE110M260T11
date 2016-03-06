@@ -1,5 +1,7 @@
 package team11.crowded;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -60,16 +62,27 @@ public class add_comment extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int pop = Integer.parseInt(rating.getText().toString());
-                if( pop > 10 ) {
-                    rating.setText("10");
+                if(rating.getText().toString().equals("") || comment.getText().toString().equals("")) {
+                    AlertDialog.Builder needRating = new AlertDialog.Builder(add_comment.this);
+
+                    needRating.setCancelable(false).setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                        }
+                    });
+                    AlertDialog errorBox = needRating.create();
+                    errorBox.setMessage("Must enter a rating AND comment");
+                    errorBox.show();
                 }
-                location_database.submit_post(login_screen.get_name(), view_page.get_location(), rating.getText().toString(), comment.getText().toString());
-
-                startActivity(new Intent(add_comment.this, view_page.class));
-
-                rating.setText("");
-                comment.setText("");
+                else {
+                    int pop = Integer.parseInt(rating.getText().toString());
+                    if( pop > 10 ) {
+                        rating.setText("10");
+                    }
+                    location_database.submit_post(login_screen.get_name(), view_page.get_location(), rating.getText().toString(), comment.getText().toString());
+                    startActivity(new Intent(add_comment.this, view_page.class));
+                    rating.setText("");
+                    comment.setText("");
+                }
             }
         });
         LinearLayout.LayoutParams submit_params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
