@@ -35,13 +35,23 @@ public class location_database {
     }
 
     private static String setTime(String time){
-        //time = time +".";
-
         Time now = new Time();
         now.setToNow();
         now.switchTimezone(now.getCurrentTimezone());
-        int hour = now.hour - Integer.parseInt(time.substring(0, 2));
-        int minute = now.minute - Integer.parseInt(time.substring(3,5));
+        int currHour = now.hour;
+        int pHour = Integer.parseInt(time.substring(0,2));
+        int pMinute = Integer.parseInt(time.substring(3,5));
+
+        if(pHour > currHour){ //e.g. when post is pre-midnight and now its after midnight
+            currHour += 24;
+        }
+
+        int hour = currHour*60;
+        int minute = now.minute + hour; //total minutes
+        int postHour = pHour*60;
+        int postMinute = pMinute + postHour;
+        hour = (minute - postMinute)/60;
+        minute = (minute - postMinute)%60;
         System.out.println(time);
         System.out.println("now.hour: "+ now.hour + ", now.minute: " + now.minute);
         System.out.println("hour: "+ time.substring(0,2) + ", minute: " + time.substring(3));
