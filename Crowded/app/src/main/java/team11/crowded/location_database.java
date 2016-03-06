@@ -1,6 +1,7 @@
 package team11.crowded;
 
 import android.support.v7.app.AppCompatActivity;
+import android.text.format.Time;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -18,7 +19,8 @@ import java.util.Map;
 
 public class location_database {
 
-    private static final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd-HH-mm");
+//    private static final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd-HH-mm");
+    private static final SimpleDateFormat format = new SimpleDateFormat("HH-mm");
     private static final ArrayList<String> db_locations = new ArrayList<>();
     private static final ArrayList<String> locations = new ArrayList<>();
 
@@ -30,6 +32,30 @@ public class location_database {
     public static ArrayList<String> get_locations()
     {
         return locations;
+    }
+
+    private static String setTime(String time){
+        //time = time +".";
+
+        Time now = new Time();
+        now.setToNow();
+        now.switchTimezone(now.getCurrentTimezone());
+        int hour = now.hour - Integer.parseInt(time.substring(0, 2));
+        int minute = now.minute - Integer.parseInt(time.substring(3,5));
+        System.out.println(time);
+        System.out.println("now.hour: "+ now.hour + ", now.minute: " + now.minute);
+        System.out.println("hour: "+ time.substring(0,2) + ", minute: " + time.substring(3));
+        System.out.println("hour: "+ hour + ", minute: " + minute);
+        if(hour == 1 && minute == 1) return hour + " hour and " + minute + " minute ago.";
+        else if(hour == 1 && minute == 0) return hour + " hour ago.";
+        else if(hour == 1 && minute > 1) return hour + " hour and " + minute + " minutes ago.";
+        else if(hour > 1 && minute == 1) return hour + " hours and " + minute + " minute ago.";
+        else if(hour > 1 && minute == 0) return hour + " hours ago.";
+        else if(hour > 1 && minute > 1) return hour + " hours and " + minute + " minutes ago.";
+        else if(hour == 0 && minute == 1) return minute + " minute ago.";
+        else if(hour == 0 && minute == 0) return "just now";
+        else if(hour == 0 && minute > 1) return minute + " minutes ago.";
+        else return "don't know? :) ";
     }
 
     public static void submit_post(String name, String location, String rating, String comment) {
@@ -72,7 +98,7 @@ public class location_database {
                     {
                         String post_info = "";
 
-                        post_info += "time = " + p.get("time") + "\n";
+                        post_info += "time = " + setTime(p.get("time")) + "\n";
                         post_info += "rating = " + p.get("rating") + "\n";
                         post_info += "votes = " + p.get("votes") + "\n";
                         post_info += "comment = " + p.get("comment") + "\n";
