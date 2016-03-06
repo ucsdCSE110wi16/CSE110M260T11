@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Crowded?</string>
+    <string name="title_activity_splash_screen">splashScreen</string>
 </resources>
