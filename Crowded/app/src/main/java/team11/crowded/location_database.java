@@ -47,13 +47,13 @@ public class location_database {
         System.out.println("hour: "+ time.substring(0,2) + ", minute: " + time.substring(3));
         System.out.println("hour: "+ hour + ", minute: " + minute);
         if(hour == 1 && minute == 1) return hour + " hour and " + minute + " minute ago.";
-        else if(hour == 1 && minute == 0) return hour + " hour ago.";
+        else if(hour == 1 && minute < 1) return hour + " hour ago.";
         else if(hour == 1 && minute > 1) return hour + " hour and " + minute + " minutes ago.";
         else if(hour > 1 && minute == 1) return hour + " hours and " + minute + " minute ago.";
-        else if(hour > 1 && minute == 0) return hour + " hours ago.";
+        else if(hour > 1 && minute < 1) return hour + " hours ago.";
         else if(hour > 1 && minute > 1) return hour + " hours and " + minute + " minutes ago.";
         else if(hour == 0 && minute == 1) return minute + " minute ago.";
-        else if(hour == 0 && minute == 0) return "just now";
+        else if(hour == 0 && minute < 1) return "just now";
         else if(hour == 0 && minute > 1) return minute + " minutes ago.";
         else return "don't know? :) ";
     }
@@ -99,7 +99,7 @@ public class location_database {
                         String post_info = "";
 
                         post_info += "time = " + setTime(p.get("time")) + "\n";
-                        post_info += "rating = " + p.get("rating") + "\n";
+                        post_info += "how populated = " + p.get("rating") + "\n";
                         post_info += "votes = " + p.get("votes") + "\n";
                         post_info += "comment = " + p.get("comment") + "\n";
                         post_info += "name = " + p.get("name") + "\n";
