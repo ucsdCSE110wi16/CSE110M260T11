@@ -163,7 +163,6 @@ public class login_screen extends AppCompatActivity
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                current_user = username.getText().toString();
                 if( username.getText().toString().equals("") ) {
                     user_name = "Guest User";
                 }

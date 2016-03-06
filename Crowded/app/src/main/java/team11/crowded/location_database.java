@@ -4,6 +4,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.format.Time;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.ImageButton;
+import android.view.View;
 
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -53,9 +55,9 @@ public class location_database {
         hour = (minute - postMinute)/60;
         minute = (minute - postMinute)%60;
         System.out.println(time);
-        System.out.println("now.hour: "+ now.hour + ", now.minute: " + now.minute);
-        System.out.println("hour: "+ time.substring(0,2) + ", minute: " + time.substring(3));
-        System.out.println("hour: "+ hour + ", minute: " + minute);
+        System.out.println("now.hour: " + now.hour + ", now.minute: " + now.minute);
+        System.out.println("hour: " + time.substring(0, 2) + ", minute: " + time.substring(3));
+        System.out.println("hour: " + hour + ", minute: " + minute);
         if(hour == 1 && minute == 1) return hour + " hour and " + minute + " minute ago.";
         else if(hour == 1 && minute < 1) return hour + " hour ago.";
         else if(hour == 1 && minute > 1) return hour + " hour and " + minute + " minutes ago.";
@@ -121,9 +123,32 @@ public class location_database {
                     post_list.add("No posts found");
                 }
 
-                ArrayAdapter<String> adapter = new ArrayAdapter<>(view, android.R.layout.simple_list_item_1, post_list);
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(view, R.layout.location_list, R.id.post_info, post_list);
                 list.setAdapter(adapter);
 
+                //ImageButton upArrow = (ImageButton) list.findViewById(R.id.upArrow);
+                //ImageButton downArrow = (ImageButton) list.findViewById(R.id.downArrow);
+
+                if (login_screen.get_user().equals("")) {
+                    //upArrow.setClickable(false);
+                    //downArrow.setClickable(false);
+                }
+                else {
+                    /*upArrow.setClickable(true);
+                    downArrow.setClickable(true);
+                    upArrow.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            //votes++;
+                        }
+                    });
+                    downArrow.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            //votes--;
+                        }
+                    });*/
+                }
                 view.setTitle("Viewing " + location);
             }
 
