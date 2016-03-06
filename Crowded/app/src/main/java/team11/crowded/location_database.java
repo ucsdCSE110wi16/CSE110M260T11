@@ -123,7 +123,8 @@ public class location_database {
                     post_list.add("No posts found");
                 }
 
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(view, R.layout.location_list, R.id.post_info, post_list);
+                //ArrayAdapter<String> adapter = new ArrayAdapter<String>(view, R.layout.location_list, R.id.post_info, post_list);
+                CustomAdapter adapter = new CustomAdapter(view, R.layout.location_list, R.id.post_info, post_list);
                 list.setAdapter(adapter);
 
                 //ImageButton upArrow = (ImageButton) list.findViewById(R.id.upArrow);

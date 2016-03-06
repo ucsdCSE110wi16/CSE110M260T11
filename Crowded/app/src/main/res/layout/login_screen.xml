@@ -19,7 +19,7 @@
         android:inputType="textPassword"
         android:ems="10"
         android:id="@+id/password"
-        android:text="Password"
+        android:hint="Password"
         android:layout_below="@+id/userName"
         android:layout_centerHorizontal="true" />
 
@@ -27,7 +27,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
-        android:text="Username"
+        android:hint="Username"
         android:ems="10"
         android:id="@+id/userName"
         android:layout_centerVertical="true"
