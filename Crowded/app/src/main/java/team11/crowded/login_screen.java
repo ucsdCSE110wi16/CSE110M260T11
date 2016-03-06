@@ -106,6 +106,12 @@ public class login_screen extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 current_user = username.getText().toString();
+                if( username.getText().toString().equals("") ) {
+                    user_name = "Guest User";
+                }
+                else {
+                    user_name = username.getText().toString();
+                }
                 startActivity(new Intent(login_screen.this, view_locations.class));
             }
         });
