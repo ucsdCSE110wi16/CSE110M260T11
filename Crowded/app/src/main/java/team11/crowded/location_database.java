@@ -123,33 +123,9 @@ public class location_database {
                     post_list.add("No posts found");
                 }
 
-                //ArrayAdapter<String> adapter = new ArrayAdapter<String>(view, R.layout.location_list, R.id.post_info, post_list);
                 CustomAdapter adapter = new CustomAdapter(view, R.layout.location_list, R.id.post_info, post_list);
                 list.setAdapter(adapter);
 
-                //ImageButton upArrow = (ImageButton) list.findViewById(R.id.upArrow);
-                //ImageButton downArrow = (ImageButton) list.findViewById(R.id.downArrow);
-
-                if (login_screen.get_user().equals("")) {
-                    //upArrow.setClickable(false);
-                    //downArrow.setClickable(false);
-                }
-                else {
-                    /*upArrow.setClickable(true);
-                    downArrow.setClickable(true);
-                    upArrow.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            //votes++;
-                        }
-                    });
-                    downArrow.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            //votes--;
-                        }
-                    });*/
-                }
                 view.setTitle("Viewing " + location);
             }
 
