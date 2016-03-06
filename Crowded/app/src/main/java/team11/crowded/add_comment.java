@@ -36,10 +36,11 @@ public class add_comment extends AppCompatActivity {
         LL.setLayoutParams(LLParams);
 
         final EditText rating = new EditText(this);
-        rating.setHint("Enter a rating");
+        rating.setHint("How populated out of 10");
         rating.setFocusable(true);
         rating.setSingleLine(true);
         rating.setMaxLines(1);
+        rating.setInputType(InputType.TYPE_CLASS_NUMBER);
         LinearLayout.LayoutParams rating_params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         rating_params.gravity = Gravity.CENTER_VERTICAL;
         rating.setLayoutParams(rating_params);
@@ -59,6 +60,10 @@ public class add_comment extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                int pop = Integer.parseInt(rating.getText().toString());
+                if( pop > 10 ) {
+                    rating.setText("10");
+                }
                 location_database.submit_post(login_screen.get_name(), view_page.get_location(), rating.getText().toString(), comment.getText().toString());
 
                 startActivity(new Intent(add_comment.this, view_page.class));
