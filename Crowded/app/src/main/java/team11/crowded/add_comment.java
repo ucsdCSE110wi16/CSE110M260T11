@@ -59,7 +59,7 @@ public class add_comment extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                location_database.submit_post(login_screen.get_user(), view_page.get_location(), rating.getText().toString(), comment.getText().toString());
+                location_database.submit_post(login_screen.get_name(), view_page.get_location(), rating.getText().toString(), comment.getText().toString());
 
                 startActivity(new Intent(add_comment.this, view_page.class));
 

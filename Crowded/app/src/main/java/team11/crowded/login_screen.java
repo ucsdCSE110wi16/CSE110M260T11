@@ -22,6 +22,8 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.common.api.GoogleApiClient;
 
 public class login_screen extends AppCompatActivity
@@ -29,6 +31,10 @@ public class login_screen extends AppCompatActivity
     private final int RC_SIGN_IN = 9001;
 
     private static String current_user = "";
+
+    private static String user_name = "";
+
+    public static String get_name() { return user_name; }
 
     public static String get_user()
     {
@@ -122,11 +128,25 @@ public class login_screen extends AppCompatActivity
         googleParams.gravity = Gravity.BOTTOM;
         login_google.setLayoutParams(googleParams);
 
+        Button signOut = new Button(this);
+        signOut.setClickable(true);
+        signOut.setText("Sign out of Google");
+        signOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                signOut();
+            }
+        });
+        LinearLayout.LayoutParams signOutParams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.WRAP_CONTENT);
+        signOutParams.gravity = Gravity.BOTTOM;
+        signOut.setLayoutParams(signOutParams);
+
         LL.addView(logo);
         LL.addView(username);
         LL.addView(password);
         LL.addView(login_google);
         LL.addView(login);
+        LL.addView(signOut);
 
         setContentView(LL);
     }
@@ -146,6 +166,17 @@ public class login_screen extends AppCompatActivity
         {
             GoogleSignInAccount account = result.getSignInAccount();
             current_user = account.getEmail();
+            user_name = account.getDisplayName();
+            startActivity(new Intent(login_screen.this, view_locations.class));
         }
+    }
+
+    public void signOut() {
+        Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
+                new ResultCallback<Status>() {
+                    @Override
+                    public void onResult(Status status) {
+                    }
+                });
     }
 }
