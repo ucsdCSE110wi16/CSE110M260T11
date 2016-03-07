@@ -10,6 +10,8 @@ import android.view.View;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
+import com.firebase.client.MutableData;
+import com.firebase.client.Transaction;
 import com.firebase.client.ValueEventListener;
 
 import java.text.SimpleDateFormat;
@@ -21,11 +23,9 @@ import java.util.Map;
 
 public class location_database {
 
-//    private static final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd-HH-mm");
-    private static final SimpleDateFormat format = new SimpleDateFormat("HH-mm");
+     private static final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd-HH-mm");
     private static final ArrayList<String> db_locations = new ArrayList<>();
     private static final ArrayList<String> locations = new ArrayList<>();
-    private static int updateVotes = 0;
 
     private static String get_to_db_location(String location)
     {
@@ -42,8 +42,8 @@ public class location_database {
         now.setToNow();
         now.switchTimezone(now.getCurrentTimezone());
         int currHour = now.hour;
-        int pHour = Integer.parseInt(time.substring(0,2));
-        int pMinute = Integer.parseInt(time.substring(3,5));
+        int pHour = Integer.parseInt(time.substring(11,13));
+        int pMinute = Integer.parseInt(time.substring(14, 16));
 
         if(pHour > currHour){ //e.g. when post is pre-midnight and now its after midnight
             currHour += 24;
@@ -64,7 +64,7 @@ public class location_database {
         else if(hour == 0 && minute == 1) return minute + " minute ago.";
         else if(hour == 0 && minute < 1) return "just now";
         else if(hour == 0 && minute > 1) return minute + " minutes ago.";
-        else return "don't know? :) ";
+        else return time;
     }
 
     public static void submit_post(String name, String location, String rating, String comment) {
@@ -76,9 +76,40 @@ public class location_database {
         post.put("name", name);
         post.put("time", format.format(new Date()));
         post.put("rating", rating);
-        post.put("votes", Integer.toString(0));
+        post.put("votes", "+0");
         post.put("comment", comment);
         posts.push().setValue(post);
+    }
+
+    public static void submit_vote(String location, String post_id, final int vote)
+    {
+        Firebase db = new Firebase("https://incandescent-fire-8621.firebaseio.com/");
+        Firebase post_votes = db.child("locations/" + get_to_db_location(location) + "/posts/" + post_id + "/votes");
+
+        post_votes.runTransaction(new Transaction.Handler() {
+            @Override
+            public Transaction.Result doTransaction(MutableData data) {
+                if (data.getValue() == null) {
+                    data.setValue("+0");
+                } else {
+                    try {
+                        int parse_vote = Integer.parseInt((String) data.getValue()) + vote;
+                        String vote_string = Integer.toString(parse_vote);
+                        if (parse_vote >= 0) vote_string = "+" + vote_string;
+                        data.setValue(vote_string);
+                    } catch (Exception e) {
+
+                    }
+                }
+
+                return Transaction.success(data);
+            }
+
+            @Override
+            public void onComplete(FirebaseError error, boolean committed, DataSnapshot data) {
+
+            }
+        });
     }
 
     public static void list_location_page(final AppCompatActivity view, final ListView list, final String location) {
@@ -94,7 +125,9 @@ public class location_database {
 
                 for (DataSnapshot post : snapshot.getChildren()) {
 
-                    posts.add((HashMap<String, String>) post.getValue());
+                    HashMap<String, String> hash_post_data = (HashMap<String, String>) post.getValue();
+                    hash_post_data.put("id", post.getKey());
+                    posts.add(hash_post_data);
                 }
 
                 ArrayList<String> post_list = new ArrayList<>();
@@ -106,11 +139,16 @@ public class location_database {
                     for (Map<String, String> p : posts) {
                         String post_info = "";
 
-                        post_info += "time = " + setTime(p.get("time")) + "\n";
-                        post_info += "how populated = " + p.get("rating") + "\n";
-                        post_info += "votes = " + p.get("votes") + "\n";
-                        post_info += "comment = " + p.get("comment") + "\n";
-                        post_info += "name = " + p.get("name") + "\n";
+                        try {
+                            post_info += p.get("id") + "\n";
+                            post_info += "time = " + setTime(p.get("time")) + "\n";
+                            post_info += "how populated = " + p.get("rating") + "\n";
+                            post_info += "votes = " + p.get("votes") + "\n";
+                            post_info += "comment = " + p.get("comment") + "\n";
+                            post_info += "name = " + p.get("name") + "\n";
+                        } catch (Exception e) {
+                            post_info = "error\nerror loading post.\n";
+                        }
 
                         post_list.add(post_info);
                     }
@@ -162,11 +200,5 @@ public class location_database {
                 System.out.println(error.getMessage());
             }
         });
-    }
-
-    public static String setVote(int vote, int changed) {
-        vote += changed;
-        updateVotes = vote;
-        return Integer.toString(vote);
     }
 }
