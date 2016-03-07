@@ -52,6 +52,35 @@ public class ScenarioTester {
     }
 
     @Test
+    public void SignInNoName(){
+        onView(withId(R.id.button)).perform(click());
+        System.out.println("Sign in and goes to list is correct! Test 1 Passes!");
+        pause(500);
+        onData(hasToString(startsWith("Biomedical Library")))
+                .inAdapterView(withId(R.id.listView))
+                .atPosition(0)
+                .perform(click());
+        System.out.println("Goes to Biomedical Library! Test 2 Passes!");
+        pause(500);
+
+        onView(withId(R.id.submitButton)).perform(click());
+
+        System.out.println("Goes submit post page for Biomedical Library! Test 3 Passes!");
+        pause(500);
+
+        onView(withId(R.id.commentField)).perform(typeTextIntoFocusedView("So crowded!"));
+        Espresso.closeSoftKeyboard();
+        pause(500);
+
+        onView(withId(R.id.rating)).perform(typeText("10"), closeSoftKeyboard());
+        pause(500);
+
+        onView(withId(R.id.postButton)).perform(click());
+        System.out.println("Submits a post! Test 4 Passes!");
+        pause(500);
+    }
+
+    @Test
     public void SignIn(){
         onView(withId(R.id.userName)).perform(typeTextIntoFocusedView("Guest 123"));
         pause(500);
@@ -78,9 +107,41 @@ public class ScenarioTester {
         onView(withId(R.id.commentField)).perform(typeTextIntoFocusedView("So crowded!"));
         Espresso.closeSoftKeyboard();
         pause(500);
+
         onView(withId(R.id.rating)).perform(typeText("10"), closeSoftKeyboard());
         pause(500);
+
         onView(withId(R.id.postButton)).perform(click());
+        System.out.println("Submits a post! Test 5 Passes!");
+        pause(500);
+    }
+
+    @Test
+    public void GoogleSignIn() {
+        onView(withId(R.id.sign_in_button)).perform(click());
+        System.out.println("Google signed in and goes to list! Test 1 Passes!");
+        pause(500);
+
+        onData(hasToString(startsWith("CSE Basement")))
+                .inAdapterView(withId(R.id.listView))
+                .atPosition(0)
+                .perform(click());
+        System.out.println("Goes to CSE Basement! Test 2 Passes!");
+        pause(500);
+
+        onView(withId(R.id.submitButton)).perform(click());
+        System.out.println("Goes submit post page for CSE Basement! Test 3 Passes!");
+        pause(500);
+
+        onView(withId(R.id.commentField)).perform(typeTextIntoFocusedView("So crowded!"));
+        Espresso.closeSoftKeyboard();
+        pause(500);
+
+        onView(withId(R.id.rating)).perform(typeText("10"), closeSoftKeyboard());
+        pause(500);
+
+        onView(withId(R.id.postButton)).perform(click());
+        System.out.println("Submits a post! Test 4 Passes!");
         pause(500);
     }
 }
