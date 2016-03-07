@@ -93,7 +93,9 @@ public class CustomAdapter extends ArrayAdapter{
                         location_database.submit_vote(view_page.get_location(), click_id, +1);
                         changeVoteInPost(post_info, +1);
 
-                        up_Arrow.setVisibility(View.INVISIBLE);
+                        if (down_Arrow.getVisibility() == View.VISIBLE)
+                            up_Arrow.setVisibility(View.INVISIBLE);
+
                         down_Arrow.setVisibility(View.VISIBLE);
                     }
                 }
@@ -109,8 +111,10 @@ public class CustomAdapter extends ArrayAdapter{
                         location_database.submit_vote(view_page.get_location(), click_id, -1);
                         changeVoteInPost(post_info, -1);
 
+                        if (up_Arrow.getVisibility() == View.VISIBLE)
+                            down_Arrow.setVisibility(View.INVISIBLE);
+
                         up_Arrow.setVisibility(View.VISIBLE);
-                        down_Arrow.setVisibility(View.INVISIBLE);
                     }
                 }
             });
