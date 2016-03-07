@@ -72,14 +72,16 @@ public class login_screen extends AppCompatActivity
 
 
         final EditText username = (EditText)findViewById(R.id.userName);
+        username.setFocusable(true);
         username.setMaxLines(1);
         username.setFocusable(true);
 
 
+        /*
         final EditText password = (EditText)findViewById(R.id.password);
-        password.setFocusable(true);
         password.setSingleLine(true);
         password.setMaxLines(1);
+        */
 
 
         Button login = (Button)findViewById(R.id.button);

@@ -21,8 +21,11 @@ public class view_locations extends AppCompatActivity
 
         setTitle("Loading Locations. Please wait");
 
-        ListView list = new ListView(this);
-        list.setBackgroundColor(Color.WHITE);
+       // ListView list = new ListView(this);
+        //list.setBackgroundColor(Color.WHITE);
+
+       setContentView(R.layout.locationview);
+        ListView list = (ListView) findViewById(R.id.listView);
 
         location_database.list_locations(this, list);
 
@@ -34,7 +37,7 @@ public class view_locations extends AppCompatActivity
             }
         });
 
-        setContentView(list);
+       // setContentView(list);
     }
 
     public boolean onOptionsItemSelected(MenuItem item)
