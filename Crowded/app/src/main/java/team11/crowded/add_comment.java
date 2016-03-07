@@ -31,6 +31,60 @@ public class add_comment extends AppCompatActivity {
 
         setTitle("Submit a post for " + view_page.get_location());
 
+        setContentView(R.layout.addcommentlayout);
+
+
+        final EditText rating = (EditText) findViewById(R.id.rating);
+        rating.setFocusable(true);
+        rating.setSingleLine(true);
+        rating.setMaxLines(1);
+        rating.setInputType(InputType.TYPE_CLASS_NUMBER);
+       // LinearLayout.LayoutParams rating_params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+       // rating_params.gravity = Gravity.CENTER_VERTICAL;
+      //  rating.setLayoutParams(rating_params);
+
+
+        final EditText comment = (EditText) findViewById(R.id.commentField);
+        rating.setFocusable(true);
+        rating.setSingleLine(true);
+        rating.setMaxLines(1);
+        rating.setInputType(InputType.TYPE_CLASS_NUMBER);
+        //LinearLayout.LayoutParams rating_params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        //rating_params.gravity = Gravity.CENTER_VERTICAL;
+        //rating.setLayoutParams(rating_params);
+
+
+        Button submit = (Button) findViewById(R.id.postButton);
+        submit.setClickable(false);
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (rating.getText().toString().equals("") || comment.getText().toString().equals("")) {
+                    AlertDialog.Builder needRating = new AlertDialog.Builder(add_comment.this);
+
+                    needRating.setCancelable(false).setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                        }
+                    });
+                    AlertDialog errorBox = needRating.create();
+                    errorBox.setMessage("Must enter a rating AND comment");
+                    errorBox.show();
+                } else {
+                    int pop = Integer.parseInt(rating.getText().toString());
+                    if (pop > 10) {
+                        rating.setText("10");
+                    }
+                    location_database.submit_post(login_screen.get_name(), view_page.get_location(), rating.getText().toString(), comment.getText().toString());
+                    startActivity(new Intent(add_comment.this, view_page.class));
+                    rating.setText("");
+                    comment.setText("");
+                }
+            }
+        });
+    }
+
+
+        /*
         LinearLayout LL = new LinearLayout(this);
         LL.setBackgroundColor(Color.WHITE);
         LL.setOrientation(LinearLayout.VERTICAL);
@@ -95,6 +149,7 @@ public class add_comment extends AppCompatActivity {
 
         setContentView(LL);
     }
+    */
 
     public boolean onOptionsItemSelected(MenuItem item)
     {
