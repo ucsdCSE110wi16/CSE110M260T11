@@ -25,6 +25,7 @@ public class location_database {
     private static final SimpleDateFormat format = new SimpleDateFormat("HH-mm");
     private static final ArrayList<String> db_locations = new ArrayList<>();
     private static final ArrayList<String> locations = new ArrayList<>();
+    private static int updateVotes = 0;
 
     private static String get_to_db_location(String location)
     {
@@ -54,10 +55,6 @@ public class location_database {
         int postMinute = pMinute + postHour;
         hour = (minute - postMinute)/60;
         minute = (minute - postMinute)%60;
-        System.out.println(time);
-        System.out.println("now.hour: " + now.hour + ", now.minute: " + now.minute);
-        System.out.println("hour: " + time.substring(0, 2) + ", minute: " + time.substring(3));
-        System.out.println("hour: " + hour + ", minute: " + minute);
         if(hour == 1 && minute == 1) return hour + " hour and " + minute + " minute ago.";
         else if(hour == 1 && minute < 1) return hour + " hour ago.";
         else if(hour == 1 && minute > 1) return hour + " hour and " + minute + " minutes ago.";
@@ -79,7 +76,7 @@ public class location_database {
         post.put("name", name);
         post.put("time", format.format(new Date()));
         post.put("rating", rating);
-        post.put("votes", "+0");
+        post.put("votes", Integer.toString(0));
         post.put("comment", comment);
         posts.push().setValue(post);
     }
@@ -88,8 +85,8 @@ public class location_database {
 
         Firebase db = new Firebase("https://incandescent-fire-8621.firebaseio.com/");
         Firebase select = db.child("locations/" + get_to_db_location(location) + "/posts");
-
         select.addListenerForSingleValueEvent(new ValueEventListener() {
+
             @Override
             public void onDataChange(DataSnapshot snapshot) {
 
@@ -106,8 +103,7 @@ public class location_database {
 
                     Collections.sort(posts, new sort_posts(format));
 
-                    for (Map<String, String> p : posts)
-                    {
+                    for (Map<String, String> p : posts) {
                         String post_info = "";
 
                         post_info += "time = " + setTime(p.get("time")) + "\n";
@@ -118,8 +114,7 @@ public class location_database {
 
                         post_list.add(post_info);
                     }
-                }
-                else {
+                } else {
                     post_list.add("No posts found");
                 }
 
@@ -167,5 +162,11 @@ public class location_database {
                 System.out.println(error.getMessage());
             }
         });
+    }
+
+    public static String setVote(int vote, int changed) {
+        vote += changed;
+        updateVotes = vote;
+        return Integer.toString(vote);
     }
 }

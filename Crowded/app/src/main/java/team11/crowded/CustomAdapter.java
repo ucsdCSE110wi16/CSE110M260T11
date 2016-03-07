@@ -35,6 +35,11 @@ public class CustomAdapter extends ArrayAdapter{
         ImageButton up_Arrow = (ImageButton) convertView.findViewById(R.id.upArrow);
         ImageButton down_Arrow = (ImageButton) convertView.findViewById(R.id.downArrow);
 
+        if( post_info.getText().toString().equals("No posts found")) {
+            up_Arrow.setVisibility(View.GONE);
+            down_Arrow.setVisibility(View.GONE);
+        }
+
         if (login_screen.get_user().equals("")) {
             up_Arrow.setClickable(false);
             down_Arrow.setClickable(false);
@@ -45,14 +50,13 @@ public class CustomAdapter extends ArrayAdapter{
             up_Arrow.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //votes++;
+                    //location_database.setVote( votes, 1 );
                     System.out.println("test");
                 }
             });
             down_Arrow.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //votes--;
                 }
             });
         }
