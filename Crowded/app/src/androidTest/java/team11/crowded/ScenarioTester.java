@@ -1,5 +1,6 @@
 package team11.crowded;
 
+import android.support.test.espresso.Espresso;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
@@ -27,7 +28,7 @@ import static org.hamcrest.core.StringStartsWith.startsWith;
 
 
 @RunWith(AndroidJUnit4.class)
-public class SignInTester {
+public class ScenarioTester {
 
     @Rule
     public ActivityTestRule<login_screen> mActivityRule = new ActivityTestRule<>(
@@ -36,6 +37,8 @@ public class SignInTester {
             view_locations.class);
     public ActivityTestRule<view_page> mActivityRule3 = new ActivityTestRule<>(
             view_page.class);
+    public ActivityTestRule<add_comment> mActivityRule4 = new ActivityTestRule<>(
+            add_comment.class);
 
     @Before
     public void before(){}
@@ -72,5 +75,12 @@ public class SignInTester {
         System.out.println("Goes submit post page for Biomedical Library! Test 4 Passes!");
         pause(500);
 
+        onView(withId(R.id.commentField)).perform(typeTextIntoFocusedView("So crowded!"));
+        Espresso.closeSoftKeyboard();
+        pause(500);
+        onView(withId(R.id.rating)).perform(typeText("10"), closeSoftKeyboard());
+        pause(500);
+        onView(withId(R.id.postButton)).perform(click());
+        pause(500);
     }
 }
