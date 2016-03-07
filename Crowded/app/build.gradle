@@ -6,6 +6,10 @@ android {
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
 
+    defaultConfig {
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
     packagingOptions {
         exclude 'META-INF/DEPENDENCIES.txt'
         exclude 'META-INF/LICENSE.txt'
@@ -45,10 +49,14 @@ dependencies {
    // compile 'com.google.android.gms:play-services:8.4.0'
     compile 'com.android.support:design:23.1.1'
 
+    ////Dependencies for testing
+    androidTestCompile 'com.android.support.test:runner:0.4.1'
+    androidTestCompile 'com.android.support.test:rules:0.4.1'
+    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.1'
+    androidTestCompile 'com.android.support:support-annotations:23.1.1'
 
-    //Testing Dependencies
-    //androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.1'
-    //androidTestCompile 'com.android.support.test:runner:0.4.1'
+
+
 }
 
 apply plugin: 'com.google.gms.google-services'

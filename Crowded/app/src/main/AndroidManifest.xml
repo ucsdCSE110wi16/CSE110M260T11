@@ -5,7 +5,7 @@
     <application
         android:allowBackup="true"
         android:icon="@drawable/krowdedicon"
-        android:label="Krowded"
+        android:label="Krowded!"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".view_locations" />
@@ -13,7 +13,7 @@
         <activity android:name=".add_comment" />
         <activity
             android:name=".splashScreen"
-            android:label="splashScreen"
+            android:label="Krowded?"
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,7 +23,7 @@
             >
         </activity>
 
-        <activity android:name=".login_screen"/>
+        <activity android:name=".login_screen" />
 
     </application>
 
