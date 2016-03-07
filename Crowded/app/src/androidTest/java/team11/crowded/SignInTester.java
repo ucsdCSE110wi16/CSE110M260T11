@@ -58,15 +58,18 @@ public class SignInTester {
         }
         else System.out.println("Guest name is correct! Test 1 Passes!");
         closeSoftKeyboard();
-        pause(500);
-        onData(hasToString(startsWith("Biomedical Library")))
-                .inAdapterView(withId(R.id.listView)).atPosition(0)
-                .check(matches(withText(containsString("Biomedical Library"))));
         System.out.println("Goes to list of locations! Test 2 Passes!");
         pause(500);
-        //Goes to Geisel 7th Floor
-        onView(withId(R.id.listView)).perform(click());
+        onData(hasToString(startsWith("Biomedical Library")))
+                .inAdapterView(withId(R.id.listView))
+                .atPosition(0)
+                .perform(click());
         System.out.println("Goes to Biomedical Library! Test 3 Passes!");
+        pause(500);
+
+        onView(withId(R.id.submitButton)).perform(click());
+
+        System.out.println("Goes submit post page for Biomedical Library! Test 4 Passes!");
         pause(500);
 
     }

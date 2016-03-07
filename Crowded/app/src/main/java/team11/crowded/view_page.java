@@ -42,6 +42,7 @@ public class view_page extends AppCompatActivity
         LL.setLayoutParams(LLParams);
 
         Button submission = new Button(this);
+        submission.setId(R.id.submitButton);
         submission.setText("Submit a Post");
         submission.setClickable(false);
         submission.setOnClickListener(new View.OnClickListener() {
