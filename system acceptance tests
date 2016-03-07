@@ -1,0 +1,31 @@
+Scenario: Loging In With Gmail
+  Narrative:
+    As a gmail user
+    I want to login using my gmail account
+    So that I can view locations and vote on posts
+  Acceptance Criteria:
+    Given I am at the login screen
+    When I click the gmail sign in button
+    Then I will be given the specialized gmail api authentication
+
+Scenario: Loging In as Guest
+  Narrative:
+    As a a non gmail user
+    I want to login using a guest account
+    So that I can view locations and but not be able to vote on posts
+  Acceptance Criteria:
+    Given I am at the login screen
+    When I click the guest sign in button
+    And I have entered a name in the guest name text field
+    Then I will be given the view location screen to see different posts
+    
+Scenario: Title
+  Narrative:
+    As a {role}
+    I want [feature]
+    So that [benefit]
+  Acceptance Criteria:
+    Given [context]
+    And [more context]
+    When [event]
+    Then [outcome]
