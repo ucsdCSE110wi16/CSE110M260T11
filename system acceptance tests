@@ -40,6 +40,18 @@ Scenario: Selecting a location
     When I select a location
     Then I want to see the status of that location
 
+Scenario: Upvoting or downvoting a post
+  Narrative:
+    As a logged in gmail user
+    I want to upvote or downvote a post
+    So that others can see how true it is
+  Acceptance Criteria:
+    Given I am at a location's summary page
+    And there is a review I want to upvote/downvote
+    And I am logged into gmail
+    When I tap the upvote or downvote button
+    Then the post's "votes" value should reflect my upvote or downvote
+
 Scenario: Updating a location
   Narrative:
     As a user at a location's page
@@ -60,14 +72,3 @@ Scenario: Submitting a post
     And I filled out both the rating and comment
     When I tap on the "post" button
     Then a new post will be submitted for that location and will show the info I inputted
-
-Scenario: Title
-  Narrative:
-    As a {role}
-    I want [feature]
-    So that [benefit]
-  Acceptance Criteria:
-    Given [context]
-    And [more context]
-    When [event]
-    Then [outcome]
