@@ -29,7 +29,7 @@ public class CustomAdapter extends ArrayAdapter{
         String str = post.getText().toString();
         String updated;
 
-        final String to_find = "votes = ";
+        final String to_find = "Votes: ";
 
         int start = str.indexOf(to_find);
         int end = str.indexOf("\n", start);
@@ -58,7 +58,8 @@ public class CustomAdapter extends ArrayAdapter{
         final ImageButton up_Arrow = (ImageButton) convertView.findViewById(R.id.upArrow);
         final ImageButton down_Arrow = (ImageButton) convertView.findViewById(R.id.downArrow);
 
-        if (list.get(position).indexOf("\n") < 0)
+        if (list.get(position).indexOf("\n") < 0 || list.get(position).equals("error\n" +
+                "error loading post.\n"))
         {
             post_info.setText("\n" + list.get(position));
             up_Arrow.setVisibility(View.GONE);

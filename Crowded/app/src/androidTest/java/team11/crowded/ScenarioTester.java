@@ -143,5 +143,6 @@ public class ScenarioTester {
         onView(withId(R.id.postButton)).perform(click());
         System.out.println("Submits a post! Test 4 Passes!");
         pause(500);
+
     }
 }

@@ -141,11 +141,11 @@ public class location_database {
 
                         try {
                             post_info += p.get("id") + "\n";
-                            post_info += "time = " + setTime(p.get("time")) + "\n";
-                            post_info += "how populated = " + p.get("rating") + "\n";
-                            post_info += "votes = " + p.get("votes") + "\n";
-                            post_info += "comment = " + p.get("comment") + "\n";
-                            post_info += "name = " + p.get("name") + "\n";
+                            post_info += setTime(p.get("time")) + "\n";
+                            post_info += "How Populated: " + p.get("rating") + "\n";
+                            post_info += "Votes: " + p.get("votes") + "\n";
+                            post_info += "Comment: " + p.get("comment") + "\n";
+                            post_info += "By: " + p.get("name") + "\n";
                         } catch (Exception e) {
                             post_info = "error\nerror loading post.\n";
                         }
