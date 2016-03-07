@@ -18,6 +18,8 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 
 import android.support.test.rule.ActivityTestRule;
 
+import com.firebase.client.Firebase;
+
 @RunWith(AndroidJUnit4.class)
 public class UpvoteTester {
     private String voteCount;
@@ -28,6 +30,7 @@ public class UpvoteTester {
 
     @Before
     public void initVoteCount(){
+        //Firebase.setAndroidContext(view_page);
         voteCount = "1";
     }
 
