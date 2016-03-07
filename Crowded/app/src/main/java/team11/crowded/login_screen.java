@@ -70,6 +70,8 @@ public class login_screen extends AppCompatActivity
 
         setContentView(R.layout.login_screen);
 
+        setTitle("Welcome to Krowded!");
+
 
         final EditText username = (EditText)findViewById(R.id.userName);
         username.setFocusable(true);
