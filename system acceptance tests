@@ -1,4 +1,4 @@
-Scenario: Loging In With Gmail
+Scenario: Logging In with Gmail
   Narrative:
     As a gmail user
     I want to login using my gmail account
@@ -8,7 +8,7 @@ Scenario: Loging In With Gmail
     When I click the gmail sign in button
     Then I will be given the specialized gmail api authentication
 
-Scenario: Loging In as Guest
+Scenario: Logging In as Guest
   Narrative:
     As a a non gmail user
     I want to login using a guest account
@@ -16,9 +16,51 @@ Scenario: Loging In as Guest
   Acceptance Criteria:
     Given I am at the login screen
     When I click the guest sign in button
-    And I have entered a name in the guest name text field
+    And I have (optionally) entered a name in the guest name text field
     Then I will be given the view location screen to see different posts
-    
+
+Scenario: Logging out of Gmail account
+  Narrative:
+    As a gmail user logged in
+    I want to logout of my gmail account
+    So that I can switch accounts or simply logout
+  Acceptance Criteria:
+    Given I am at the login screen
+    And I am logged into gmail
+    When I click the "sign out" button
+    Then I will be signed out
+
+Scenario: Selecting a location
+  Narrative:
+    As a user logged in
+    I want to select a location
+    So that I can see the status of that location
+  Acceptance Criteria:
+    Given I am at the "choose a location" page
+    When I select a location
+    Then I want to see the status of that location
+
+Scenario: Updating a location
+  Narrative:
+    As a user at a location's page
+    I want to add a review of that location
+    So that the app will be updated to show my new information
+  Acceptance Criteria:
+    Given I am at a location's summary
+    When I tap the "submit a post" button
+    Then I will be able to type in a review of the location
+
+Scenario: Submitting a post
+  Narrative:
+    As a user at the "submit a post" page for a location
+    I want to submit a summary of the location
+    So that the app will have updated info for the location
+  Acceptance Criteria:
+    Given I am at the "submit a post" page for a location
+    And I filled out both the rating and comment
+    When I tap on the "post" button
+    Then a new post will be submitted for that location and will show the info I inputted
+
 Scenario: Title
   Narrative:
     As a {role}
