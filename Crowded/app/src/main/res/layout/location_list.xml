@@ -7,7 +7,10 @@
     <TextView
         android:id="@+id/post_info"
         android:layout_width="wrap_content"
+        android:layout_weight="0.8"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_alignParentLeft="true"
         android:textAppearance="?android:attr/textAppearanceListItemSmall"/>
     
     <ImageButton
@@ -19,6 +22,7 @@
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:gravity="right"
+        android:layout_alignParentRight="true"
         android:background="#FFFFFF"
         android:src="@drawable/up_arrow" />
 
