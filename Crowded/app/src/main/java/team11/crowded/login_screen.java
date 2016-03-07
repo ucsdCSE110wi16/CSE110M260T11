@@ -1,5 +1,7 @@
 package team11.crowded;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -122,6 +124,15 @@ public class login_screen extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 signOut();
+
+                AlertDialog.Builder signOutBox = new AlertDialog.Builder(login_screen.this);
+                signOutBox.setCancelable(false).setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                    }
+                });
+                AlertDialog signBox= signOutBox.create();
+                signBox.setMessage("Signed out of Google!");
+                signBox.show();
             }
         });
 
