@@ -4,33 +4,44 @@
     android:layout_height="match_parent">
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Post!"
+        android:layout_width="300px"
+        android:layout_height="150px"
         android:id="@+id/postButton"
         android:layout_gravity="center|bottom"
-        android:layout_marginBottom="77dp"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/postbutton"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 
     <EditText
-        android:layout_width="600px"
-        android:layout_height="400px"
-        android:background="@drawable/logo"
-        android:hint = " Type your comment here (limit 140 characters)"
+        android:layout_width="700px"
+        android:layout_height="450px"
+        android:background="@drawable/textbox"
+        android:hint = " Type your comment here"
         android:id="@+id/commentField"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="32dp"
+        android:maxLength="140"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:maxLength="140" />
-    <EditText
+        android:layout_centerHorizontal="true" />
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint = "Enter a rating 0-10 on how full"
-        android:id="@+id/rating"
+        android:hint = "On a scale of 1-10 how full?"
+        android:id="@+id/text1"
+        android:textSize="20dp"
         android:layout_below="@+id/commentField"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="32dp" />
+        android:layout_marginTop="34dp" />
+
+    <EditText
+        android:layout_width="100px"
+        android:layout_height="100px"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/rating"
+        android:background="@drawable/squaretext"
+        android:layout_below="@+id/text1"
+        android:layout_centerHorizontal="true" />
 
 
 </RelativeLayout>
