@@ -4,8 +4,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.format.Time;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.ImageButton;
-import android.view.View;
 
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
