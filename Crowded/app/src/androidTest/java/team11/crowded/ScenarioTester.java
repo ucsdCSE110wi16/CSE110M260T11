@@ -3,11 +3,17 @@ package team11.crowded;
 import android.support.test.espresso.Espresso;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import android.view.View;
+import android.widget.ListView;
+
+import com.firebase.client.Firebase;
 
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import java.util.ArrayList;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
@@ -18,6 +24,7 @@ import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static android.support.test.espresso.Espresso.onData;
+import static junit.framework.Assert.assertEquals;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.anything;
 import static org.hamcrest.Matchers.containsString;
@@ -52,38 +59,41 @@ public class ScenarioTester {
     }
 
     @Test
-    public void SignInNoName(){
+public void SignInNoName(){
         onView(withId(R.id.button)).perform(click());
         System.out.println("Sign in and goes to list is correct! Test 1 Passes!");
-        pause(500);
+        pause(1500);
+
+        ArrayList<String> testList = location_database.get_locations();
+
         onData(hasToString(startsWith("Biomedical Library")))
                 .inAdapterView(withId(R.id.listView))
                 .atPosition(0)
                 .perform(click());
         System.out.println("Goes to Biomedical Library! Test 2 Passes!");
-        pause(500);
+        pause(1500);
 
         onView(withId(R.id.submitButton)).perform(click());
 
         System.out.println("Goes submit post page for Biomedical Library! Test 3 Passes!");
-        pause(500);
+        pause(1500);
 
         onView(withId(R.id.commentField)).perform(typeTextIntoFocusedView("So crowded!"));
         Espresso.closeSoftKeyboard();
-        pause(500);
+        pause(1500);
 
         onView(withId(R.id.rating)).perform(typeText("10"), closeSoftKeyboard());
-        pause(500);
+        pause(1500);
 
         onView(withId(R.id.postButton)).perform(click());
         System.out.println("Submits a post! Test 4 Passes!");
-        pause(500);
+        pause(1500);
     }
 
     @Test
     public void SignIn(){
         onView(withId(R.id.userName)).perform(typeTextIntoFocusedView("Guest 123"));
-        pause(500);
+        pause(1500);
         onView(withId(R.id.button)).perform(click());
         if(!login_screen.get_user().matches("Guest 123")){
             System.out.println("Guest name is: " +login_screen.get_user()+" when it should be Guest 123");
@@ -91,58 +101,58 @@ public class ScenarioTester {
         else System.out.println("Guest name is correct! Test 1 Passes!");
         closeSoftKeyboard();
         System.out.println("Goes to list of locations! Test 2 Passes!");
-        pause(500);
+        pause(1500);
         onData(hasToString(startsWith("Biomedical Library")))
                 .inAdapterView(withId(R.id.listView))
                 .atPosition(0)
                 .perform(click());
         System.out.println("Goes to Biomedical Library! Test 3 Passes!");
-        pause(500);
+        pause(1500);
 
         onView(withId(R.id.submitButton)).perform(click());
 
         System.out.println("Goes submit post page for Biomedical Library! Test 4 Passes!");
-        pause(500);
+        pause(1500);
 
         onView(withId(R.id.commentField)).perform(typeTextIntoFocusedView("So crowded!"));
         Espresso.closeSoftKeyboard();
-        pause(500);
+        pause(1500);
 
         onView(withId(R.id.rating)).perform(typeText("10"), closeSoftKeyboard());
-        pause(500);
+        pause(1500);
 
         onView(withId(R.id.postButton)).perform(click());
         System.out.println("Submits a post! Test 5 Passes!");
-        pause(500);
+        pause(1500);
     }
 
     @Test
     public void GoogleSignIn() {
         onView(withId(R.id.sign_in_button)).perform(click());
         System.out.println("Google signed in and goes to list! Test 1 Passes!");
-        pause(500);
+        pause(1500);
 
         onData(hasToString(startsWith("CSE Basement")))
                 .inAdapterView(withId(R.id.listView))
                 .atPosition(0)
                 .perform(click());
         System.out.println("Goes to CSE Basement! Test 2 Passes!");
-        pause(500);
+        pause(1500);
 
         onView(withId(R.id.submitButton)).perform(click());
         System.out.println("Goes submit post page for CSE Basement! Test 3 Passes!");
-        pause(500);
+        pause(1500);
 
         onView(withId(R.id.commentField)).perform(typeTextIntoFocusedView("So crowded!"));
         Espresso.closeSoftKeyboard();
-        pause(500);
+        pause(1500);
 
         onView(withId(R.id.rating)).perform(typeText("10"), closeSoftKeyboard());
-        pause(500);
+        pause(1500);
 
         onView(withId(R.id.postButton)).perform(click());
         System.out.println("Submits a post! Test 4 Passes!");
-        pause(500);
+        pause(1500);
 
     }
 }
