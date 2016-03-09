@@ -11,6 +11,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.text.SimpleDateFormat;
+<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -24,6 +25,12 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static junit.framework.Assert.assertEquals;
 import static org.hamcrest.Matchers.hasToString;
 import static org.hamcrest.core.StringStartsWith.startsWith;
+=======
+import java.util.Calendar;
+import java.util.Date;
+
+import static junit.framework.Assert.assertEquals;
+>>>>>>> origin/master
 
 @RunWith(AndroidJUnit4.class)
 public class TestCases {
@@ -58,13 +65,26 @@ public class TestCases {
         Time now = new Time();
         now.setToNow();
         now.switchTimezone(now.getCurrentTimezone());
-        int currHour = now.hour;
-        int currYear = now.year;
-        int currMonth = now.month + 1;
-        int currDay = now.monthDay;
 
-        String time = format.format(new Date());
-        location_database.setTime(time).matches("more than a year");
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(new Date());
+
+        cal.add(Calendar.SECOND, -1);
+        assertEquals("just now", location_database.setTime(format.format(cal.getTime())));
+
+        cal.add(Calendar.SECOND, -60);
+        assertEquals("1 minute ago.", location_database.setTime(format.format(cal.getTime())));
+
+        cal.add(Calendar.SECOND, +61);
+        cal.add(Calendar.HOUR, -1);
+        assertEquals("1 hour ago.", location_database.setTime(format.format(cal.getTime())));
+
+        cal.add(Calendar.SECOND, -121);
+        cal.add(Calendar.HOUR, -1);
+        assertEquals("2 hours and 2 minutes ago.", location_database.setTime(format.format(cal.getTime())));
+
+        cal.add(Calendar.YEAR, -1);
+        assertEquals("1 year(s) ago.", location_database.setTime(format.format(cal.getTime())));
     }
 
     @Test
