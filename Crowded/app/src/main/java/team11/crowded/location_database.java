@@ -21,7 +21,7 @@ import java.util.Map;
 
 public class location_database {
 
-     private static final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd-HH-mm");
+    private static final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd-HH-mm");
     private static final ArrayList<String> db_locations = new ArrayList<>();
     private static final ArrayList<String> locations = new ArrayList<>();
 
