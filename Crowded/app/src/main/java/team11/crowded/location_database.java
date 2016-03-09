@@ -43,7 +43,21 @@ public class location_database {
         int pHour = Integer.parseInt(time.substring(11,13));
         int pMinute = Integer.parseInt(time.substring(14, 16));
 
-        if(pHour > currHour){ //e.g. when post is pre-midnight and now its after midnight
+        //when year/month/day don't equal
+        int currYear = now.year;
+        int currMonth = now.month + 1;
+        int currDay = now.monthDay;
+
+        int pYear = Integer.parseInt(time.substring(0,4));
+        int pMonth = Integer.parseInt(time.substring(5,7));
+        int pDay = Integer.parseInt(time.substring(8,10));
+
+        if(currYear!=pYear) return Integer.toString(currYear-pYear) + "year(s) ago";
+        if(currMonth != pMonth) return time;
+        if(currDay - pDay == 1 && pHour < currHour) return "over a day ago";
+        else if(currDay - pDay >= 2) return "over " + (currDay - pDay) + " days ago";
+        //less than 24 hours ago
+        else if(pHour > currHour){ //e.g. when post is pre-midnight and now its after midnight
             currHour += 24;
         }
 
@@ -51,6 +65,7 @@ public class location_database {
         int minute = now.minute + hour; //total minutes
         int postHour = pHour*60;
         int postMinute = pMinute + postHour;
+
         hour = (minute - postMinute)/60;
         minute = (minute - postMinute)%60;
         if(hour == 1 && minute == 1) return hour + " hour and " + minute + " minute ago.";
