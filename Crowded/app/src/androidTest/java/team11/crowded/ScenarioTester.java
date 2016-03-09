@@ -59,12 +59,10 @@ public class ScenarioTester {
     }
 
     @Test
-public void SignInNoName(){
+    public void SignInNoName(){
         onView(withId(R.id.button)).perform(click());
         System.out.println("Sign in and goes to list is correct! Test 1 Passes!");
         pause(1500);
-
-        ArrayList<String> testList = location_database.get_locations();
 
         onData(hasToString(startsWith("Biomedical Library")))
                 .inAdapterView(withId(R.id.listView))
@@ -139,6 +137,9 @@ public void SignInNoName(){
         System.out.println("Goes to CSE Basement! Test 2 Passes!");
         pause(1500);
 
+        System.out.println("Goes to CSE Basement! Test 2 Passes!");
+        pause(1500);
+
         onView(withId(R.id.submitButton)).perform(click());
         System.out.println("Goes submit post page for CSE Basement! Test 3 Passes!");
         pause(1500);
@@ -153,6 +154,7 @@ public void SignInNoName(){
         onView(withId(R.id.postButton)).perform(click());
         System.out.println("Submits a post! Test 4 Passes!");
         pause(1500);
+
 
     }
 }
