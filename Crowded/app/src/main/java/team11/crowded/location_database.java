@@ -52,10 +52,10 @@ public class location_database {
         int pMonth = Integer.parseInt(time.substring(5,7));
         int pDay = Integer.parseInt(time.substring(8,10));
 
-        if(currYear!=pYear) return Integer.toString(currYear-pYear) + "year(s) ago";
+        if(currYear!=pYear) return Integer.toString(currYear-pYear) + " year(s) ago.";
         if(currMonth != pMonth) return time;
-        if(currDay - pDay == 1 && pHour < currHour) return "over a day ago";
-        else if(currDay - pDay >= 2) return "over " + (currDay - pDay) + " days ago";
+        if(currDay - pDay == 1 && pHour < currHour) return " over a day ago.";
+        else if(currDay - pDay >= 2) return "over " + (currDay - pDay) + " days ago.";
         //less than 24 hours ago
         else if(pHour > currHour){ //e.g. when post is pre-midnight and now its after midnight
             currHour += 24;
