@@ -37,7 +37,7 @@ public class location_database {
         return locations;
     }
 
-    private static String setTime(String time){
+    public static String setTime(String time){
         Time now = new Time();
         now.setToNow();
         now.switchTimezone(now.getCurrentTimezone());

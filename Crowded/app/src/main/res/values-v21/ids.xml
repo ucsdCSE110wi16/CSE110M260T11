@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="up_vote" type="id"/>
+    <item name="down_vote" type="id"/>
+    <item name="post_adapter" type="id"/>
+</resources>

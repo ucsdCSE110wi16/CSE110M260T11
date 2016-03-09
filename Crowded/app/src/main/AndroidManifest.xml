@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="team11.crowded">
+    package="team11.crowded" >
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
         android:icon="@drawable/krowdedicon"
         android:label="Krowded?"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme" >
         <activity android:name=".view_locations" />
         <activity android:name=".view_page" />
         <activity android:name=".add_comment" />
         <activity
             android:name=".splashScreen"
             android:label="Krowded?"
-            android:theme="@style/Theme.AppCompat.NoActionBar">
+            android:theme="@style/Theme.AppCompat.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,9 +24,7 @@
             </intent-filter>
             >
         </activity>
-
         <activity android:name=".login_screen" />
-
     </application>
 
 </manifest>
