@@ -24,6 +24,8 @@ public class location_database {
     private static final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd-HH-mm");
     private static final ArrayList<String> db_locations = new ArrayList<>();
     private static final ArrayList<String> locations = new ArrayList<>();
+    private static ArrayList<String> post_list;
+    public static ArrayList<String> getPost() { return post_list; }
 
     private static String get_to_db_location(String location)
     {
@@ -143,7 +145,7 @@ public class location_database {
                     posts.add(hash_post_data);
                 }
 
-                ArrayList<String> post_list = new ArrayList<>();
+                post_list = new ArrayList<>();
 
                 if (!posts.isEmpty()) {
 

@@ -11,7 +11,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.text.SimpleDateFormat;
-<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -25,12 +24,10 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static junit.framework.Assert.assertEquals;
 import static org.hamcrest.Matchers.hasToString;
 import static org.hamcrest.core.StringStartsWith.startsWith;
-=======
 import java.util.Calendar;
 import java.util.Date;
 
 import static junit.framework.Assert.assertEquals;
->>>>>>> origin/master
 
 @RunWith(AndroidJUnit4.class)
 public class TestCases {
@@ -112,7 +109,54 @@ public class TestCases {
         pause(1500);
         onView(withId(R.id.button)).perform(click());
         closeSoftKeyboard();
-        assertEquals( login_screen.get_name(), "Guest 123" );
+        assertEquals(login_screen.get_name(), "Guest 123");
+    }
+
+    @Test
+    public void test_view() {
+        onView(withId(R.id.button)).perform(click());
+        pause(1500);
+
+        onData(hasToString(startsWith("Starbucks")))
+                .inAdapterView(withId(R.id.listView))
+                .atPosition(0)
+                .perform(click());
+        pause(1500);
+
+        ArrayList<String> testArray = location_database.getPost();
+        assertEquals(testArray.get(0), "No posts found");
+    }
+
+    @Test
+    public void test_comment() {
+        onView(withId(R.id.button)).perform(click());
+        pause(1500);
+
+        onData(hasToString(startsWith("Biomedical Library")))
+                .inAdapterView(withId(R.id.listView))
+                .atPosition(0)
+                .perform(click());
+        pause(1500);
+
+        onView(withId(R.id.submitButton)).perform(click());
+        pause(1500);
+
+        onView(withId(R.id.commentField)).perform(typeTextIntoFocusedView("Test comment"));
+        Espresso.closeSoftKeyboard();
+        pause(1500);
+
+        onView(withId(R.id.rating)).perform(typeText("10"), closeSoftKeyboard());
+        pause(1500);
+
+        onView(withId(R.id.postButton)).perform(click());
+        pause(1500);
+
+        ArrayList<String> testArray = location_database.getPost();
+        assertEquals( testArray.get(0).substring(testArray.get(0).indexOf("\n")), "\njust now\n" +
+                "How Populated: 10\n" +
+                "Votes: +0\n" +
+                "Comment: Test comment\n" +
+                "By: Guest User\n");
     }
 
 
