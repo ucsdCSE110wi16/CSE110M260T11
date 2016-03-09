@@ -6,9 +6,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.graphics.Color;
 
 public class view_locations extends AppCompatActivity
 {
@@ -21,10 +19,7 @@ public class view_locations extends AppCompatActivity
 
         setTitle("Loading Locations. Please wait");
 
-       // ListView list = new ListView(this);
-        //list.setBackgroundColor(Color.WHITE);
-
-       setContentView(R.layout.locationview);
+        setContentView(R.layout.locationview);
         ListView list = (ListView) findViewById(R.id.listView);
 
         location_database.list_locations(this, list);
@@ -36,8 +31,6 @@ public class view_locations extends AppCompatActivity
                 startActivity(new Intent(view_locations.this, view_page.class));
             }
         });
-
-       // setContentView(list);
     }
 
     public boolean onOptionsItemSelected(MenuItem item)
